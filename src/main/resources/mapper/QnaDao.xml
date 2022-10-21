@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<!-- namespace에는 DAO가 있는 위치를 지정한다. -->
+<mapper namespace="com.project.greenbook.dao.QnaDao">
+    <!-- id에는 메서드 명을 넣는다. -->
+    <select id="list" resultType="com.project.greenbook.dto.QnaDto">
+        SELECT BID, BNAME, BTITLE, BCONTENT, BDATE, BHIT FROM QNA_BOARD
+    </select>
+
+    <insert id="write" parameterType="hashmap">
+        INSERT INTO QNA_BOARD(bName, bTitle, bContent, bHit)
+        VALUES (#{bName},#{bTitle},#{bContent},0)
+    </insert>
+
+    <select id="contentView" parameterType="hashmap" resultType="com.project.greenbook.dto.QnaDto">
+        SELECT bId, bName, bTitle, bContent, bDate, bHit FROM QNA_BOARD WHERE bId =#{bId}
+    </select>
+
+    <update id="modify" parameterType="hashmap">
+        UPDATE QNA_BOARD SET bName = #{bName}, bTitle = #{bTitle}, bContent = #{bContent}
+        WHERE bId = #{bId}
+    </update>
+
+    <delete id="delete" parameterType="hashmap">
+        DELETE FROM QNA_BOARD WHERE bId = #{bId}
+    </delete>
+</mapper>
